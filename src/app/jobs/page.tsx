@@ -3,54 +3,18 @@
 import { Search, Plus, Filter, MoreHorizontal, Briefcase, Users, Clock, ArrowUpRight, CheckCircle2, AlertCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-const jobs = [
-  { 
-    id: 1, 
-    role: "Senior Frontend Developer", 
-    department: "Engineering", 
-    location: "Remote", 
-    candidates: 42, 
-    interviews: 8, 
-    status: "Active", 
-    aiScore: "94%",
-    posted: "2 days ago" 
-  },
-  { 
-    id: 2, 
-    role: "Product Designer", 
-    department: "Design", 
-    location: "New York", 
-    candidates: 18, 
-    interviews: 3, 
-    status: "Active", 
-    aiScore: "88%",
-    posted: "5 days ago" 
-  },
-  { 
-    id: 3, 
-    role: "Backend Engineer", 
-    department: "Engineering", 
-    location: "Austin, TX", 
-    candidates: 64, 
-    interviews: 12, 
-    status: "On Hold", 
-    aiScore: "91%",
-    posted: "1 week ago" 
-  },
-  { 
-    id: 4, 
-    role: "Marketing Manager", 
-    department: "Growth", 
-    location: "Remote", 
-    candidates: 25, 
-    interviews: 0, 
-    status: "Active", 
-    aiScore: "76%",
-    posted: "3 days ago" 
-  },
-];
+import { useFirestoreCollection } from "@/hooks/useFirestoreData";
 
 export default function JobsPage() {
+  const { data: jobs, loading } = useFirestoreCollection<any>("jobs");
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center h-[400px]">
+        <div className="w-8 h-8 border-4 border-blue-600 border-t-transparent rounded-full animate-spin" />
+      </div>
+    );
+  }
   return (
     <div className="flex flex-col gap-8">
       {/* Header */}

@@ -3,54 +3,18 @@
 import { Search, Filter, MoreHorizontal, User, Star, MapPin, CheckCircle2, ChevronRight, Mail, Phone, Download, Clock } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-const candidates = [
-  {
-    id: 1,
-    name: "Alex Dom Bringer",
-    role: "Senior Graphic Illustrator",
-    experience: "8 years",
-    location: "Stockholm, Sweden",
-    status: "Shortlisted",
-    aiScore: 94.2,
-    avatar: "https://i.pravatar.cc/150?u=1",
-    tags: ["Illustrator", "Branding", "UI Design"]
-  },
-  {
-    id: 2,
-    name: "Jeremy Miller Voke",
-    role: "Frontend Developer",
-    experience: "5 years",
-    location: "Berlin, Germany",
-    status: "Interviewing",
-    aiScore: 88.9,
-    avatar: "https://i.pravatar.cc/150?u=2",
-    tags: ["React", "Next.js", "Tailwind"]
-  },
-  {
-    id: 3,
-    name: "Launa Fernandez",
-    role: "UX/UI Designer",
-    experience: "6 years",
-    location: "Madrid, Spain",
-    status: "New Applied",
-    aiScore: 71.5,
-    avatar: "https://i.pravatar.cc/150?u=3",
-    tags: ["Figma", "Research", "Accessibility"]
-  },
-  {
-    id: 4,
-    name: "Marcus Aurelius",
-    role: "Fullstack Engineer",
-    experience: "12 years",
-    location: "Rome, Italy",
-    status: "Rejected",
-    aiScore: 45.2,
-    avatar: "https://i.pravatar.cc/150?u=4",
-    tags: ["Python", "Node.js", "Docker"]
-  }
-];
+import { useFirestoreCollection } from "@/hooks/useFirestoreData";
 
 export default function CandidatesPage() {
+  const { data: candidates, loading } = useFirestoreCollection<any>("candidates");
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center h-[400px]">
+        <div className="w-8 h-8 border-4 border-blue-600 border-t-transparent rounded-full animate-spin" />
+      </div>
+    );
+  }
   return (
     <div className="flex flex-col gap-8">
       {/* Header */}
@@ -111,7 +75,7 @@ export default function CandidatesPage() {
                          </div>
                       </div>
                       <div className="flex gap-2 mt-4">
-                        {c.tags.map(tag => (
+                        {c.tags.map((tag: string) => (
                           <span key={tag} className="px-2 py-1 bg-slate-50 text-slate-500 text-[10px] font-bold rounded-lg border border-slate-100">
                             {tag}
                           </span>

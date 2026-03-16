@@ -32,6 +32,11 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       setLoading(false);
     });
 
+    // Seed database for development if needed
+    import("@/services/seed").then(({ seedDatabase }) => {
+      seedDatabase();
+    });
+
     return () => unsubscribe();
   }, []);
 
