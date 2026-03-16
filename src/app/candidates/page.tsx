@@ -1,6 +1,6 @@
 "use client";
 
-import { Search, Filter, MoreHorizontal, User, Star, MapPin, CheckCircle2, ChevronRight, Mail, Phone, Download } from "lucide-react";
+import { Search, Filter, MoreHorizontal, User, Star, MapPin, CheckCircle2, ChevronRight, Mail, Phone, Download, Clock } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const candidates = [
